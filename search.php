@@ -8,7 +8,7 @@ if (isset($_GET['blood_type'])) {
     $bt = $_GET['blood_type'];
     $loc = $_GET['location'];
     
-    // 🔴 SQL FOR TEACHER: Using LIKE operator for flexible searching
+    // 🔴 SQL : Using LIKE operator for flexible searching
     $sql = "SELECT * FROM Donors WHERE Blood_Type = '$bt' AND City_Location LIKE '%$loc%' AND Eligibility_Status = 'Available'";
     $search_results = $conn->query($sql);
 }
