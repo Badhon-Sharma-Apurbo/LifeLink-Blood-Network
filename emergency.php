@@ -3,7 +3,7 @@ include 'db_config.php';
 $message = ""; 
 
 // ==========================================
-// 🔴 SQL TRANSACTION FOR TEACHER TO REVIEW
+// 🔴 SQL TRANSACTION 
 // ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $req_hospital = $_POST['req_hospital'];
