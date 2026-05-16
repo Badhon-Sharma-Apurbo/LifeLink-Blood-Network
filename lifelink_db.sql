@@ -1,31 +1,9 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: May 15, 2026 at 10:40 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `lifelink_db`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `blood_inventory`
---
 
 CREATE TABLE `blood_inventory` (
   `Inventory_ID` int(11) NOT NULL,
@@ -35,9 +13,7 @@ CREATE TABLE `blood_inventory` (
   `Last_Updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `blood_inventory`
---
+
 
 INSERT INTO `blood_inventory` (`Inventory_ID`, `Hospital_ID`, `Blood_Type`, `Units_Available`, `Last_Updated`) VALUES
 (1, 1, 'O+', 10, '2026-05-15 12:50:57'),
@@ -54,11 +30,7 @@ INSERT INTO `blood_inventory` (`Inventory_ID`, `Hospital_ID`, `Blood_Type`, `Uni
 (12, 5, 'AB+', 7, '2026-05-15 08:30:10'),
 (13, 6, 'O-', 1, '2026-05-15 08:30:10');
 
--- --------------------------------------------------------
 
---
--- Table structure for table `blood_requests`
---
 
 CREATE TABLE `blood_requests` (
   `Request_ID` int(11) NOT NULL,
@@ -70,20 +42,14 @@ CREATE TABLE `blood_requests` (
   `Request_Status` varchar(50) DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `blood_requests`
---
+
 
 INSERT INTO `blood_requests` (`Request_ID`, `Requesting_Hospital_ID`, `Target_Hospital_ID`, `Blood_Type`, `Units_Requested`, `Request_Date`, `Request_Status`) VALUES
 (1, 2, 1, 'O+', 5, '2026-05-15 12:50:57', 'Fulfilled'),
 (2, 3, 1, 'O+', 50, '2026-05-15 12:51:44', 'Failed - Low Stock'),
 (3, 1, 5, 'A+', 2, '2026-05-15 14:03:11', 'Fulfilled');
 
--- --------------------------------------------------------
 
---
--- Table structure for table `donation_history`
---
 
 CREATE TABLE `donation_history` (
   `Donation_ID` int(11) NOT NULL,
@@ -93,20 +59,14 @@ CREATE TABLE `donation_history` (
   `Units_Donated` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `donation_history`
---
+
 
 INSERT INTO `donation_history` (`Donation_ID`, `Donor_ID`, `Hospital_ID`, `Donation_Date`, `Units_Donated`) VALUES
 (1, 3, 3, '2026-04-20', 1),
 (2, 6, 5, '2026-04-25', 1),
 (3, 8, 2, '2026-04-28', 1);
 
--- --------------------------------------------------------
 
---
--- Table structure for table `donors`
---
 
 CREATE TABLE `donors` (
   `Donor_ID` int(11) NOT NULL,
@@ -118,9 +78,7 @@ CREATE TABLE `donors` (
   `Eligibility_Status` varchar(20) DEFAULT 'Available'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `donors`
---
+
 
 INSERT INTO `donors` (`Donor_ID`, `Full_Name`, `Blood_Type`, `City_Location`, `Contact_Number`, `Last_Donation_Date`, `Eligibility_Status`) VALUES
 (1, 'Antor Rahman', 'O+', 'Dhaka', '01700111222', '2025-12-01', 'Available'),
@@ -151,11 +109,6 @@ INSERT INTO `donors` (`Donor_ID`, `Full_Name`, `Blood_Type`, `City_Location`, `C
 (26, 'Sumaiya Shafi', 'O+', 'Dhaka', '01645678901', NULL, 'Available'),
 (27, 'Hasan Al-Banna', 'A+', 'Bogura', '01556789012', NULL, 'Available');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `hospitals`
---
 
 CREATE TABLE `hospitals` (
   `Hospital_ID` int(11) NOT NULL,
@@ -164,9 +117,7 @@ CREATE TABLE `hospitals` (
   `Contact_Number` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `hospitals`
---
+
 
 INSERT INTO `hospitals` (`Hospital_ID`, `Hospital_Name`, `Region`, `Contact_Number`) VALUES
 (1, 'Dhaka Medical College Hospital', 'Dhaka', '01711223344'),
@@ -176,104 +127,64 @@ INSERT INTO `hospitals` (`Hospital_ID`, `Hospital_Name`, `Region`, `Contact_Numb
 (5, 'Sylhet MAG Osmani Medical', 'Sylhet', '01611335577'),
 (6, 'Khulna City Medical', 'Khulna', '01511446688');
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `blood_inventory`
---
 ALTER TABLE `blood_inventory`
   ADD PRIMARY KEY (`Inventory_ID`),
   ADD KEY `Hospital_ID` (`Hospital_ID`);
 
---
--- Indexes for table `blood_requests`
---
+
 ALTER TABLE `blood_requests`
   ADD PRIMARY KEY (`Request_ID`),
   ADD KEY `Requesting_Hospital_ID` (`Requesting_Hospital_ID`),
   ADD KEY `Target_Hospital_ID` (`Target_Hospital_ID`);
 
---
--- Indexes for table `donation_history`
---
+
 ALTER TABLE `donation_history`
   ADD PRIMARY KEY (`Donation_ID`),
   ADD KEY `Donor_ID` (`Donor_ID`),
   ADD KEY `Hospital_ID` (`Hospital_ID`);
 
---
--- Indexes for table `donors`
---
+
 ALTER TABLE `donors`
   ADD PRIMARY KEY (`Donor_ID`);
 
---
--- Indexes for table `hospitals`
---
+
 ALTER TABLE `hospitals`
   ADD PRIMARY KEY (`Hospital_ID`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `blood_inventory`
---
 ALTER TABLE `blood_inventory`
   MODIFY `Inventory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
---
--- AUTO_INCREMENT for table `blood_requests`
---
+
 ALTER TABLE `blood_requests`
   MODIFY `Request_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- AUTO_INCREMENT for table `donation_history`
---
+
 ALTER TABLE `donation_history`
   MODIFY `Donation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- AUTO_INCREMENT for table `donors`
---
+
 ALTER TABLE `donors`
   MODIFY `Donor_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
---
--- AUTO_INCREMENT for table `hospitals`
---
+
 ALTER TABLE `hospitals`
   MODIFY `Hospital_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
---
--- Constraints for dumped tables
---
 
---
--- Constraints for table `blood_inventory`
---
 ALTER TABLE `blood_inventory`
   ADD CONSTRAINT `blood_inventory_ibfk_1` FOREIGN KEY (`Hospital_ID`) REFERENCES `hospitals` (`Hospital_ID`) ON DELETE CASCADE;
 
---
--- Constraints for table `blood_requests`
---
+
 ALTER TABLE `blood_requests`
   ADD CONSTRAINT `blood_requests_ibfk_1` FOREIGN KEY (`Requesting_Hospital_ID`) REFERENCES `hospitals` (`Hospital_ID`),
   ADD CONSTRAINT `blood_requests_ibfk_2` FOREIGN KEY (`Target_Hospital_ID`) REFERENCES `hospitals` (`Hospital_ID`);
 
---
--- Constraints for table `donation_history`
---
+
 ALTER TABLE `donation_history`
   ADD CONSTRAINT `donation_history_ibfk_1` FOREIGN KEY (`Donor_ID`) REFERENCES `donors` (`Donor_ID`),
   ADD CONSTRAINT `donation_history_ibfk_2` FOREIGN KEY (`Hospital_ID`) REFERENCES `hospitals` (`Hospital_ID`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
