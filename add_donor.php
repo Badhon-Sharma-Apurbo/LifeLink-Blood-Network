@@ -4,7 +4,7 @@ include 'db_config.php';
 $message = "";
 
 // ==========================================
-// 🔴 SQL INSERT QUERY FOR TEACHER TO REVIEW
+// 🔴 SQL INSERT QUERY 
 // ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['full_name'];
